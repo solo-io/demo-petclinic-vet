@@ -42,7 +42,7 @@ const (
                       </a>
                   </li>
   
-                  <li class="active">
+                  <li>
                       <a href="/" title="home page">
                         <span class="glyphicon  glyphicon-home" aria-hidden="true"></span>
                         <span>Home</span>
@@ -56,20 +56,20 @@ const (
                       </a>
                   </li>
   
-                  <li>
+                  <li class="active">
                       <a href="/vets.html" title="veterinarians">
                         <span class="glyphicon  glyphicon-th-list" aria-hidden="true"></span>
                         <span>Veterinarians</span>
                       </a>
                   </li>
   
-                  <li class="active">
+                  <li>
                   <a href="/contact.html" title="contact">
                     <span class="glyphicon  glyphicon-envelope" aria-hidden="true"></span>
                     <span>Contact</span>
                   </a>
                   </li>
-                  
+
                   <li>
                       <a href="/oups" title="trigger a RuntimeException to see how it is handled">
                         <span class="glyphicon  glyphicon-warning-sign" aria-hidden="true"></span>
