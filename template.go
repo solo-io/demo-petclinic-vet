@@ -63,6 +63,13 @@ const (
                       </a>
                   </li>
   
+                  <li class="active">
+                  <a href="/contact.html" title="contact">
+                    <span class="glyphicon  glyphicon-envelope" aria-hidden="true"></span>
+                    <span>Contact</span>
+                  </a>
+                  </li>
+                  
                   <li>
                       <a href="/oups" title="trigger a RuntimeException to see how it is handled">
                         <span class="glyphicon  glyphicon-warning-sign" aria-hidden="true"></span>
