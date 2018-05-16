@@ -2,4 +2,4 @@
 set -ex
 
 GOOS=linux CGO_ENABLED=0 go build -gcflags "-N -l"
-docker build -t soloio/petclinic-vet:v0.2 .
+docker build -t soloio/petclinic-vet:v0.3 .
