@@ -239,12 +239,6 @@ const (
                 <input type="text" class="form-control" name="city" id="city" placeholder="City"/>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="specialties">Specialties</label>
-                <div class="col-sm-10">
-                <input type="text" class="form-control" name="specialty" id="specialties" placeholder="comma separated list"/>
-                </div>
-            </div>
         </div>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
