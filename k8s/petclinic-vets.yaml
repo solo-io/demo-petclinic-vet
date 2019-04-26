@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: petclinic-vets
+  name: petclinic-vets
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: petclinic-vets
+  template:
+    metadata:
+      labels:
+        app: petclinic-vets
+    spec:
+      containers:
+        - image: petclinic-vet
+          imagePullPolicy: IfNotPresent
+          name: petclinic-vets
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: petclinic-vets
+spec:
+  ports:
+    - name: http-ui
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: petclinic-vets
+  type: ClusterIP

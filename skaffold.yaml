@@ -1,0 +1,9 @@
+apiVersion: skaffold/v1beta8
+kind: Config
+build:
+  artifacts:
+  - image: petclinic-vet
+deploy:
+  kubectl:
+    manifests:
+    - k8s/petclinic-vets.yaml
