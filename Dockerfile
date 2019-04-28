@@ -1,6 +1,6 @@
 FROM golang:1.12-alpine3.9 as build_base
 RUN apk add --no-cache git
-WORKDIR $GOPATH/src/github.com/sololabs/petclinic-vet
+WORKDIR $GOPATH/src/github.com/sololabs/petclinic-vets
 
 ENV GO111MODULE=on
 
@@ -14,5 +14,6 @@ COPY . ./
 RUN GOOS=linux CGO_ENABLED=0 go build -gcflags "-N -l" -o /app
 
 FROM alpine:3.9
+EXPOSE 8080
 CMD ["./app"]
 COPY --from=builder /app ./

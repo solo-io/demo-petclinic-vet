@@ -11,14 +11,14 @@ import (
 
 const (
 	dbUser     = "root"
-	dbPassword = "demo"
+	dbPassword = "petclinic"
 	dbHost     = "petclinic-db.default.svc.cluster.local"
 	dbName     = "petclinic"
 
-	query = `select first_name, last_name, city, name
-from vets v
-left join vet_specialties vs on v.id = vs.vet_id
-left join specialties s on s.id = vs.specialty_id`
+	query = `SELECT first_name, last_name, city, name
+FROM vets
+LEFT JOIN vet_specialties vs ON vets.id = vs.vet_id
+LEFT JOIN specialties s ON s.id = vs.specialty_id`
 )
 
 type Vet struct {

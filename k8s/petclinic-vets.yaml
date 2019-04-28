@@ -22,6 +22,15 @@ spec:
             - containerPort: 8080
               name: http
               protocol: TCP
+          env:
+            - name: DB_USER
+              value: "root"
+            - name: DB_PASSWORD
+              value: "petclinic"
+            - name: DB_HOST
+              value: "petclinic-db.default.svc.cluster.local"
+            - name: DB_NAME
+              value: "petclinic"
       restartPolicy: Always
 ---
 apiVersion: v1
@@ -31,7 +40,7 @@ metadata:
 spec:
   ports:
     - name: http-ui
-      port: 80
+      port: 8080
       protocol: TCP
       targetPort: 8080
   selector:
