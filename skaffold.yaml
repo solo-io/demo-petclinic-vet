@@ -2,7 +2,7 @@ apiVersion: skaffold/v1beta9
 kind: Config
 build:
   artifacts:
-  - image: petclinic-vet
+  - image: petclinic-vets
 deploy:
   kubectl:
     manifests:
