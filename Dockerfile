@@ -1,19 +1,31 @@
-FROM golang:1.12-alpine3.9 as build_base
+FROM golang:1-alpine as build_base
+
+WORKDIR /src
+
 RUN apk add --no-cache git
-WORKDIR $GOPATH/src/github.com/sololabs/petclinic-vets
 
-ENV GO111MODULE=on
-
-COPY go.mod .
-COPY go.sum .
+COPY ./go.mod ./go.sum ./
 
 RUN go mod download
 
 FROM build_base AS builder
-COPY . ./
-RUN GOOS=linux CGO_ENABLED=0 go build -gcflags "-N -l" -o /app
 
-FROM alpine:3.9
-EXPOSE 8080
-CMD ["./app"]
+COPY . ./
+
+RUN GOOS=linux CGO_ENABLED=0 go build \
+    -gcflags "-N -l" \
+    -o /app
+
+FROM alpine
+
 COPY --from=builder /app ./
+
+EXPOSE 8080
+
+# Create a group and user
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
+# Perform any further action as an unprivileged user.
+USER appuser
+
+CMD ["./app"]

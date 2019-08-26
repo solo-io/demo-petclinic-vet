@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: petclinic-db
-  namespace: default
   labels:
     app: petclinic-db
 spec:
@@ -16,35 +15,63 @@ spec:
         app: petclinic-db
     spec:
       containers:
-        - name: petclinic-db
-          image: quay.io/sololabs/petclinic-db:v2
-          ports:
-            - containerPort: 3306
-              protocol: TCP
-              name: mysql
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: "petclinic"
-            - name: MYSQL_DATABASE
-              value: "petclinic"
-          volumeMounts:
-            - mountPath: /var/lib/mysql
-              name: sql-data
+      - name: petclinic-db
+        image: quay.io/sololabs/petclinic-db:v3
+        ports:
+        - containerPort: 3306
+          protocol: TCP
+          name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "petclinic"
+        - name: MYSQL_DATABASE
+          value: "petclinic"
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: sql-data
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512Mi
+          limits:
+            cpu: 250m
+            memory: 512Mi
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - "mysqladmin ping -u root -p${MYSQL_ROOT_PASSWORD}"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - "mysqladmin ping -u root -p${MYSQL_ROOT_PASSWORD}"
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 3
       volumes:
-        - name: sql-data
-          emptyDir: {}
+      - name: sql-data
+        emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: petclinic-db
-  namespace: default
 spec:
   ports:
-    - name: mysql
-      port: 3306
-      protocol: TCP
-      targetPort: 3306
+  - name: mysql
+    port: 3306
+    protocol: TCP
+    targetPort: 3306
   selector:
     app: petclinic-db
   type: ClusterIP
