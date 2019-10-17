@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: petclinic-db
-        image: quay.io/sololabs/petclinic-db:v3
+        image: quay.io/solo-io/petclinic-db:latest
         ports:
         - containerPort: 3306
           protocol: TCP

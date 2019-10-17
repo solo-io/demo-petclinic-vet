@@ -15,7 +15,7 @@ spec:
         app: petclinic-vets
     spec:
       containers:
-      - image: petclinic-vets
+      - image: quay.io/solo-io/petclinic-vets:latest
         imagePullPolicy: IfNotPresent
         name: petclinic-vets
         ports:
